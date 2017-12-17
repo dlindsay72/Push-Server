@@ -5,17 +5,14 @@ extension Droplet {
         
         get("apps") { _ in
             
-//            var json = JSON()
-//            let app = App(title: "My First App")
-//            try json.set("title", app.title)
+            let apps = try App.all()
             
-            
-            return "json"
+            return try apps.makeJSON()
         }
         
         post("insertApp") { request in
             let app = try App(request: request)
-            
+            try app.save()
             return try app.makeJSON()
         }
     }
